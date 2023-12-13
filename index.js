@@ -30,7 +30,7 @@ function processarCadastroUsuario(requisicao, resposta){
                         <legend class="mb-3">Cadastro de Usuário</legend>
                         <div class="col-md-4">
                         <label for="" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <input type="text" class="form-control" id="nome" name="nome" value="${dados.nome}" required>
                         </div>
         `;
         if(!dados.nome){
@@ -43,7 +43,7 @@ function processarCadastroUsuario(requisicao, resposta){
         conteudoResposta+=`
         <div class="col-md-4">
             <label for="sobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+            <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="${dados.sobrenome}" required>
         </div>
         `;
         if(!dados.sobrenome){
@@ -56,7 +56,7 @@ function processarCadastroUsuario(requisicao, resposta){
         conteudoResposta+=`
         <div class="col-md-4">
             <label for="nomeUsuario" class="form-label">Nome Usuário</label>
-            <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" aria-describedby="inputGroupPrepend" required>
+            <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" aria-describedby="inputGroupPrepend" value="${dados.nomeUsuario}" required>
         </div>
         `;
         if(!dados.nomeUsuario){
@@ -69,7 +69,7 @@ function processarCadastroUsuario(requisicao, resposta){
         conteudoResposta+=`
         <div class="col-md-6">
             <label for="cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="cidade" name="cidade" required>
+            <input type="text" class="form-control" id="cidade" name="cidade" value="${dados.cidade}" required>
         </div>
         `;
         if(!dados.cidade){
@@ -82,7 +82,7 @@ function processarCadastroUsuario(requisicao, resposta){
         conteudoResposta+=`
         <div class="col-md-3">
             <label for="uf" class="form-label">UF</label>
-            <select class="form-select" id="UF" name="UF" required>
+            <select class="form-select" id="UF" name="UF" value="${dados.UF}" required>
                 <option selected disabled value="">Escolha um estado...</option>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
@@ -124,7 +124,7 @@ function processarCadastroUsuario(requisicao, resposta){
         conteudoResposta+=`
         <div class="col-md-3">
             <label for="cep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="cep" name="cep" required>
+            <input type="text" class="form-control" id="cep" name="cep" value="${dados.cep}" required>
         </div>
         `;
         if(!dados.cep){
@@ -209,8 +209,13 @@ function processarCadastroUsuario(requisicao, resposta){
 }
 const app = express();
 
+//ativar a extensão que manipula requisições HTTP
+//opção false ativa a extensão querystring
+//opção true ativa a extensão qs (manipula objetos (lista, alinhados))
+app.use(express.urlencoded({extended: true}));
+
 //Indicando para a aplicação como servir arquivos estáticos localizados na pasta 'paginas'
-app.use(express.static('./paginas'));
+app.use(express.static('paginas'));
 
 app.get('/', (requisicao, resposta) =>{
     resposta.end(`
